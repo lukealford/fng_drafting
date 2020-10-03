@@ -82,3 +82,12 @@ function screenBlur(duration, player)
         end)
     end
 end
+
+
+function overMaxSpeed(veh)
+
+    if (GetEntitySpeed(veh) > Config.maxSpeed)
+        return true
+    else
+        return false
+end
