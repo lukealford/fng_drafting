@@ -85,7 +85,8 @@ end
 
 
 function maxSpeedCheck(veh)
-    if (GetEntitySpeed(veh) <= Config.maxSpeed) then
+    if (convertToMph(GetEntitySpeed(veh)) <= Config.maxSpeed) then
+        print('Less than max speed')
         return true
     else
         return false
@@ -93,9 +94,16 @@ function maxSpeedCheck(veh)
 end
 
 function minSpeedCheck(veh)
-    if (GetEntitySpeed(veh) >= Config.minSpeed) then
+    if (convertToMph(GetEntitySpeed(veh)) >= Config.minSpeed) then
+        print('Over min speed')
         return true
     else
         return false
     end
 end
+
+
+function convertToMph(speed)
+    mph = (speed * 2.236936)
+    return mph
+end 

@@ -13,14 +13,12 @@ Citizen.CreateThread(function()
         local veh = GetVehiclePedIsIn(ped, false)
         local closestVeh = GetLeadCar(veh,Config.distance)
         local closestPlayer, closestPlayerDist = GetClosestPlayer()
-        local maxSpeedVeh = maxSpeedCheck(veh)
-        local minSpeedVeh = minSpeedCheck(veh)
-        
+
         --print('closest player', closestPlayer)
         if Config.requireRaces then
             local playerInRace = table.find(playersInRace,closestPlayer)
             --print('players in race', table.unpack(playersInRace))
-            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and playerInRace and (maxSpeedVeh == true) and (minSpeedVeh == true) and closestVeh then
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and playerInRace and maxSpeedCheck(veh) and minSpeedCheck(veh) and closestVeh then
                 boostCar(closestPlayerDist,veh)
                 screenBlur(ped, 5000)
                 --debugs
@@ -31,7 +29,7 @@ Citizen.CreateThread(function()
                     SetVehicleEngineTorqueMultiplier(veh,1.0)
             end
         else 
-            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance)  and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and (maxSpeedVeh == true) and (minSpeedVeh == true) and closestVeh then
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance)  and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and maxSpeedCheck(veh) and minSpeedCheck(veh) and closestVeh then
                 boostCar(closestPlayerDist,veh)
                 --debugs
                 --print('Car in front is player in race',playerInRace)
