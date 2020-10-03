@@ -1,9 +1,11 @@
-local playersInRace = {}
 
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj)
     ESX = obj
 end)
+
+local playersInRace = {}
+
 
 
 Citizen.CreateThread(function()
