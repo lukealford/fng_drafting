@@ -1,14 +1,19 @@
 local playersInRace = {}
 
+ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj)
+    ESX = obj
+end)
+
+
 Citizen.CreateThread(function()
 	while true do
         Citizen.Wait(0)
-        --testPlayers()
         local ped = GetPlayerPed(-1)
         local veh = GetVehiclePedIsIn(ped, false)
         local closestVeh = GetLeadCar(veh,Config.distance)
         local closestPlayer, closestPlayerDist = GetClosestPlayer()
-        print('closest player', closestPlayer)
+        --print('closest player', closestPlayer)
         if Config.requireRaces then
             local playerInRace = table.find(playersInRace,closestPlayer)
             --print('players in race', table.unpack(playersInRace))
@@ -16,14 +21,20 @@ Citizen.CreateThread(function()
                 boostCar(closestPlayerDist,veh)
                 --debugs
                 --print('Car in front is player in race',playerInRace)
-                print('Boosting Car')
+                --print('Boosting Car')
+                else
+                    SetVehicleEnginePowerMultiplier(veh,1.0)
+                    SetVehicleEngineTorqueMultiplier(veh,1.0)
             end
         else 
             if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and closestVeh then
                 boostCar(closestPlayerDist,veh)
                 --debugs
                 --print('Car in front is player in race',playerInRace)
-                print('Boosting Car')
+                --print('Boosting Car')
+                else
+                    SetVehicleEnginePowerMultiplier(veh,1.0)
+                    SetVehicleEngineTorqueMultiplier(veh,1.0)
             end
         end
     end
@@ -44,6 +55,9 @@ function boostCar(leadDistance, veh)
         SetVehicleBoostActive(veh,true)
         SetVehicleEnginePowerMultiplier(veh,Config.boost/2)
         SetVehicleEngineTorqueMultiplier(veh,Config.boost/4)
+    else
+        SetVehicleEnginePowerMultiplier(veh,1.0)
+        SetVehicleEngineTorqueMultiplier(veh,1.0)
     end
 end
 
@@ -57,8 +71,6 @@ function GetLeadCar(chaseCar, distance)
     local coords2 = GetOffsetFromEntityInWorldCoords(chaseCar, 0.0,distance,0.0)
     local rayhandle = CastRayPointToPoint(coords, coords2, 10, chaseCar, 0)
     local _, _, _, _, entityHit = GetRaycastResult(rayhandle)
-
-
     if entityHit>0 and IsEntityAVehicle(entityHit) and GetIsVehicleEngineRunning(entityHit) and IsPedAPlayer(GetPedInVehicleSeat(entityHit,-1)) then
         return entityHit
     else
