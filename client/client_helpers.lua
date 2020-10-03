@@ -119,7 +119,7 @@ function boostCar(leadDistance, veh)
     elseif(leadDistance <= Config.maxDistance) then
         SetVehicleBoostActive(veh,true)
         setBoost(veh,Config.boost,Config.boost/2)
-    elseif(leadDistance <= Config.minDistance) then
+    elseif(leadDistance <= Config.maxDistance/2) then
         SetVehicleBoostActive(veh,true)
         setBoost(veh,Config.boost/2,Config.boost/4)
     else
