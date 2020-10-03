@@ -17,6 +17,3 @@ server_scripts {
 dependencies { 
     'StreetRaces',
 }
-files{
-    'assets/wind.ogg'
-}

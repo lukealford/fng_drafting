@@ -16,7 +16,8 @@ end
 --debug lead car function, send vehicle ID
 function drawMarkerOnLead(vehID)
     --[[
-       Draws a marker on lead car // this was a debug function
+        Draws a marker on lead car
+        this was a debug function
     ]]--
     Citizen.CreateThread(function()
         while true do
@@ -57,11 +58,9 @@ function GetPlayers()
 
     local esxPlayers = ESX.Game.GetPlayers()
     local players = {}
-
     for k,v in ipairs(esxPlayers) do
         table.insert(players, v)
     end
-
     return players
 end
 
@@ -73,12 +72,12 @@ end
 
 function screenBlur(duration, player)
     if duration < 0 then -- loop
-        SetPedMotionBlur(player, true) 
+        SetEntityMotionBlur(player, true) 
     else
         SetPedMotionBlur(player, true) 
         Citizen.CreateThread(function() -- force stop the screen effect after duration+1 seconds
             Citizen.Wait(math.floor((duration+1)*1000))
-            SetPedMotionBlur(player, false) 
+            SetEntityMotionBlur(player, false) 
         end)
     end
 end
@@ -88,7 +87,6 @@ function maxSpeedCheck(veh)
     local maxS = GetEntitySpeed(veh) 
     local maxSMph = convertToMph(maxS)
     if (maxSMph <= Config.maxSpeed) then
-        --print('Less than max speed')
         return true
     else
         return false
@@ -99,7 +97,6 @@ function minSpeedCheck(veh)
     local minS = GetEntitySpeed(veh) 
     local minSMph = convertToMph(minS)
     if ( minSMph >= Config.minSpeed) then
-        --print('Over min speed')
         return true
     else
         return false
@@ -112,3 +109,43 @@ function convertToMph(speed)
     --print('current speed', mph)
     return mph
 end 
+
+
+function boostCar(leadDistance, veh)
+    -- boost car if it meets requirements
+    if(leadDistance >= Config.maxDistance) then
+        SetVehicleBoostActive(veh,false)
+        setBoost(veh,1.0,1.0)
+    elseif(leadDistance <= Config.maxDistance) then
+        SetVehicleBoostActive(veh,true)
+        setBoost(veh,Config.boost,Config.boost/2)
+    elseif(leadDistance <= Config.minDistance) then
+        SetVehicleBoostActive(veh,true)
+        setBoost(veh,Config.boost/2,Config.boost/4)
+    else
+        setBoost(veh,1.0,1.0)
+    end
+end
+
+function GetLeadCar(chaseCar, distance)
+    --[[
+        Gets the first vehicle ahead of the chase car.
+        Returns a vehicle entity or nil.
+        Thanks hattie :)
+    --]]
+    local coords = GetOffsetFromEntityInWorldCoords(chaseCar,0.0,1.0,0.3)
+    local coords2 = GetOffsetFromEntityInWorldCoords(chaseCar, 0.0,distance,0.0)
+    local rayhandle = CastRayPointToPoint(coords, coords2, 10, chaseCar, 0)
+    local _, _, _, _, entityHit = GetRaycastResult(rayhandle)
+    if entityHit>0 and IsEntityAVehicle(entityHit) and GetIsVehicleEngineRunning(entityHit) and IsPedAPlayer(GetPedInVehicleSeat(entityHit,-1)) then
+        return entityHit
+    else
+        return nil
+    end
+end
+
+
+function setBoost(veh, power, torque)
+    SetVehicleEnginePowerMultiplier(veh,power)
+    SetVehicleEngineTorqueMultiplier(veh,torque)
+end

@@ -1,9 +1,9 @@
 Config = {
     boost = 15.0,
-    distance = 65.0,
+    maxDistance = 65.0,
     minDistance = 25.0,
-    AngleOfAttack = 45,
-    requireRaces = false,
     maxSpeed = 165,
-    minSpeed = 60
+    minSpeed = 60,
+    AngleOfAttack = 45,
+    requireRaces = false
 }
