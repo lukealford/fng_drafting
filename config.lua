@@ -4,5 +4,6 @@ Config = {
     minDistance = 25.0,
     AngleOfAttack = 45,
     requireRaces = false,
-    maxSpeed = 165
+    maxSpeed = 165,
+    minSpeed = 60
 }
