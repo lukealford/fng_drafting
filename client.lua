@@ -10,7 +10,7 @@ Citizen.CreateThread(function()
         local closestPlayer, closestPlayerDist = GetClosestPlayer()
         print('closest player', closestPlayer)
         if Config.requireRaces then
-            local playerInRace = table.find(playersInRace,GetPlayerServerId(closestPlayer))
+            local playerInRace = table.find(playersInRace,closestPlayer)
             --print('players in race', table.unpack(playersInRace))
             if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and playerInRace and closestVeh then
                 boostCar(closestPlayerDist,veh)
