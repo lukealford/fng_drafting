@@ -64,3 +64,21 @@ function GetPlayers()
 
     return players
 end
+
+
+function GetAngleOfAttack(leadCar,chaseCar)
+    return math.abs(GetEntityHeading(leadCar)-GetEntityHeading(chaseCar))
+end
+
+
+function screenBlur(duration, player)
+    if duration < 0 then -- loop
+        SetPedMotionBlur(player, true) 
+    else
+        SetPedMotionBlur(player, true) 
+        Citizen.CreateThread(function() -- force stop the screen effect after duration+1 seconds
+            Citizen.Wait(math.floor((duration+1)*1000))
+            SetPedMotionBlur(player, false) 
+        end)
+    end
+end

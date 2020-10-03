@@ -6,12 +6,17 @@ version '0.5.0'
 
 client_scripts {
     'config.lua',
-    'client_helpers.lua',
-    'client.lua'
+    'client/client_helpers.lua',
+    'client/client.lua'
 }
+
+
 server_scripts {
     '@StreetRaces/races_sv.lua'
 }
 dependencies { 
     'StreetRaces',
+}
+files{
+    'assets/wind.ogg'
 }

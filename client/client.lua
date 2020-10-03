@@ -6,8 +6,6 @@ end)
 
 local playersInRace = {}
 
-
-
 Citizen.CreateThread(function()
 	while true do
         Citizen.Wait(0)
@@ -19,8 +17,9 @@ Citizen.CreateThread(function()
         if Config.requireRaces then
             local playerInRace = table.find(playersInRace,closestPlayer)
             --print('players in race', table.unpack(playersInRace))
-            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and playerInRace and closestVeh then
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and playerInRace and closestVeh then
                 boostCar(closestPlayerDist,veh)
+                screenBlur(ped, 5000)
                 --debugs
                 --print('Car in front is player in race',playerInRace)
                 --print('Boosting Car')
@@ -29,7 +28,7 @@ Citizen.CreateThread(function()
                     SetVehicleEngineTorqueMultiplier(veh,1.0)
             end
         else 
-            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and closestVeh then
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance)  and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and closestVeh then
                 boostCar(closestPlayerDist,veh)
                 --debugs
                 --print('Car in front is player in race',playerInRace)
@@ -86,4 +85,3 @@ RegisterNetEvent("Drafting:draftMonitor")
 AddEventHandler("Drafting:draftMonitor", function(racers)
     playersInRace = racers
 end)
-
