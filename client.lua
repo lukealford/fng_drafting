@@ -31,6 +31,7 @@ function boostCar(leadDistance, veh)
         SetVehicleEnginePowerMultiplier(veh,Config.boost)
         SetVehicleEngineTorqueMultiplier(veh,Config.boost/2)
     elseif(leadDistance <= Config.distance/2) then
+        SetVehicleBoostActive(veh,true)
         SetVehicleEnginePowerMultiplier(veh,Config.boost/2)
         SetVehicleEngineTorqueMultiplier(veh,Config.boost/4)
     end
