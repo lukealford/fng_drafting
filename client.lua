@@ -8,17 +8,27 @@ Citizen.CreateThread(function()
         local veh = GetVehiclePedIsIn(ped, false)
         local closestVeh = GetLeadCar(veh,Config.distance)
         local closestPlayer, closestPlayerDist = GetClosestPlayer()
-        local playerInRace = table.find(playersInRace,GetPlayerServerId(closestPlayer))
-        --print('players in race', table.unpack(playersInRace))
-        --print('closest player', GetPlayerServerId(closestPlayer))
-        if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and playerInRace and closestVeh then
-            boostCar(closestPlayerDist,veh)
-            --debugs
-            --print('Car in front is player in race',playerInRace)
-            --print('Boosting Car')
+        print('closest player', closestPlayer)
+        if Config.requireRaces then
+            local playerInRace = table.find(playersInRace,GetPlayerServerId(closestPlayer))
+            --print('players in race', table.unpack(playersInRace))
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and playerInRace and closestVeh then
+                boostCar(closestPlayerDist,veh)
+                --debugs
+                --print('Car in front is player in race',playerInRace)
+                print('Boosting Car')
+            end
+        else 
+            if(closestPlayerDist <= Config.distance) and (closestPlayerDist >= Config.minDistance) and closestVeh then
+                boostCar(closestPlayerDist,veh)
+                --debugs
+                --print('Car in front is player in race',playerInRace)
+                print('Boosting Car')
+            end
         end
     end
 end)
+
 
 function boostCar(leadDistance, veh)
     -- boost car if it meets requirements
@@ -41,6 +51,7 @@ function GetLeadCar(chaseCar, distance)
     --[[
         Gets the first vehicle ahead of the chase car.
         Returns a vehicle entity or nil.
+        Thanks hattie :)
     --]]
     local coords = GetOffsetFromEntityInWorldCoords(chaseCar,0.0,1.0,0.3)
     local coords2 = GetOffsetFromEntityInWorldCoords(chaseCar, 0.0,distance,0.0)

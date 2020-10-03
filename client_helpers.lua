@@ -48,17 +48,18 @@ function GetClosestPlayer()
         end
     end
     
-    return closestPlayer, closestDistance
+    return GetPlayerServerId(closestPlayer), closestDistance
 end
+
 
 --required for the above function
 function GetPlayers()
+
+    local esxPlayers = ESX.Game.GetPlayers()
     local players = {}
 
-    for i = 0, 31 do
-        if NetworkIsPlayerActive(i) then
-            table.insert(players, i)
-        end
+    for k,v in ipairs(esxPlayers) do
+        table.insert(players, v)
     end
 
     return players
