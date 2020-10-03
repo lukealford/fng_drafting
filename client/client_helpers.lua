@@ -88,7 +88,7 @@ function maxSpeedCheck(veh)
     local maxS = GetEntitySpeed(veh) 
     local maxSMph = convertToMph(maxS)
     if (maxSMph <= Config.maxSpeed) then
-        print('Less than max speed')
+        --print('Less than max speed')
         return true
     else
         return false
@@ -99,7 +99,7 @@ function minSpeedCheck(veh)
     local minS = GetEntitySpeed(veh) 
     local minSMph = convertToMph(minS)
     if ( minSMph >= Config.minSpeed) then
-        print('Over min speed')
+        --print('Over min speed')
         return true
     else
         return false
@@ -109,6 +109,6 @@ end
 
 function convertToMph(speed)
     mph = (speed * 2.236936)
-    print('current speed', mph)
+    --print('current speed', mph)
     return mph
 end 
