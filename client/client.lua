@@ -18,7 +18,7 @@ Citizen.CreateThread(function()
             --print('players in race', table.unpack(playersInRace))
             if(closestPlayerDist <= Config.maxDistance) and (closestPlayerDist >= Config.minDistance) and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and playerInRace and maxSpeedCheck(veh) and minSpeedCheck(veh) and closestVeh then
                     boostCar(closestPlayerDist,veh)
-                    screenBlur(ped, 5000)
+                    screenBlur(Config.effectDuration)
                     --debugs
                     --print('Car in front is player in race',playerInRace)
                     --print('Boosting Car')
@@ -28,7 +28,7 @@ Citizen.CreateThread(function()
         else 
             if(closestPlayerDist <= Config.maxDistance) and (closestPlayerDist >= Config.minDistance)  and (GetAngleOfAttack(closestVeh, veh) <= Config.AngleOfAttack) and maxSpeedCheck(veh) and minSpeedCheck(veh) and closestVeh then
                     boostCar(closestPlayerDist,veh)
-                    screenBlur(ped, 5000)
+                    screenBlur(Config.effectDuration)
                     --debugs
                     --print('Car in front is player in race',playerInRace)
                     --print('Boosting Car')

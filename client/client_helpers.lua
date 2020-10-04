@@ -70,15 +70,15 @@ function GetAngleOfAttack(leadCar,chaseCar)
 end
 
 
-function screenBlur(duration, player)
-    local activeBlur
-    if duration < 0 and (activeBlur = false) then -- loop
-        SetEntityMotionBlur(player, true) 
-        activeBlur = true
+function screenBlur(duration)
+    local active = false
+    if (active == false) then -- loop
+        AnimpostfxPlay(Config.effect, duration, false)
+        active = true
     else
         Citizen.CreateThread(function() -- force stop the screen effect after duration+1 seconds
             Citizen.Wait(math.floor((duration+1)*1000))
-            SetEntityMotionBlur(player, false) 
+            AnimpostfxStop(Config.effect)
         end)
     end
 end
