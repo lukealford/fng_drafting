@@ -5,7 +5,7 @@ Config = {
     maxSpeed = 165,
     minSpeed = 60,
     AngleOfAttack = 45,
-    requireRaces = false
+    requireRaces = false,
     effect = 'MP_corona_switch',
     effectDuration = 5000
 }
