@@ -72,14 +72,16 @@ end
 
 function screenBlur(duration)
     local active = false
-    if (active == false) then -- loop
-        AnimpostfxPlay(Config.effect, duration, false)
-        active = true
-    else
+    if (active) then -- loop
         Citizen.CreateThread(function() -- force stop the screen effect after duration+1 seconds
             Citizen.Wait(math.floor((duration+1)*1000))
             AnimpostfxStop(Config.effect)
+            AnimpostfxStopAll()
+            active = false
         end)
+    else
+        AnimpostfxPlay(Config.effect, duration, false)
+        active = true
     end
 end
 
