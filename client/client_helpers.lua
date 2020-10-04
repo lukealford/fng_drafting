@@ -71,10 +71,11 @@ end
 
 
 function screenBlur(duration, player)
-    if duration < 0 then -- loop
+    local activeBlur
+    if duration < 0 and (activeBlur = false) then -- loop
         SetEntityMotionBlur(player, true) 
+        activeBlur = true
     else
-        SetPedMotionBlur(player, true) 
         Citizen.CreateThread(function() -- force stop the screen effect after duration+1 seconds
             Citizen.Wait(math.floor((duration+1)*1000))
             SetEntityMotionBlur(player, false) 
