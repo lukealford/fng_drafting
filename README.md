@@ -24,3 +24,6 @@ Finally add
 `start fng_drafting`
 to your server.cfg
 
+### Credits
+Hattiehats - helped a lot with some functions / debugging
+Juzty - for testing enviroment
