@@ -1,5 +1,9 @@
 ## A basic Drafting resource for FiveM
 
+###
+Setup, adjust `config.lua` to your liking
+
+
 ### dependencies
 * StreetRaces
 
@@ -27,3 +31,4 @@ to your server.cfg
 ### Credits
 Hattiehats - helped a lot with some functions / debugging
 Juzty - for testing enviroment
+
